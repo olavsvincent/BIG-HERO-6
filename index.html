@@ -1,0 +1,1005 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIG HERO 6</title>
+
+    <link rel="stylesheet" href="css/auth.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================================
+           ROSTER LAYOUT
+        ===================================== */
+
+        .roster-display {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 15px;
+            box-sizing: border-box;
+        }
+
+        .roster-stage {
+            position: relative;
+            width: 100%;
+            min-height: 570px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .roster-viewport {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .roster-track {
+            display: flex;
+            gap: 0 !important;
+            transition: transform 0.75s cubic-bezier(.22, 1, .36, 1);
+            will-change: transform;
+        }
+
+        .hero-card {
+            flex: 0 0 100% !important;
+            width: 100%;
+            min-width: 100%;
+            box-sizing: border-box;
+
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            padding: 35px 20px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            text-decoration: none;
+        }
+
+        .hero-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* =====================================
+           MEMBER PROFILE
+        ===================================== */
+
+        .member-character {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            margin: 0 auto;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .member-photo {
+            width: 230px;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 50%;
+
+            border: 5px solid #fff;
+            outline: 2px solid #e52332;
+
+            box-shadow:
+                0 0 0 9px rgba(229, 35, 50, .08),
+                0 0 25px rgba(229, 35, 50, .3),
+                0 0 65px rgba(229, 35, 50, .12);
+
+            transition: transform .5s ease, box-shadow .5s ease;
+        }
+
+        .hero-card:hover .member-photo {
+            transform: scale(1.045);
+
+            box-shadow:
+                0 0 0 12px rgba(229, 35, 50, .12),
+                0 0 35px rgba(229, 35, 50, .45),
+                0 0 80px rgba(229, 35, 50, .2);
+        }
+
+        .hero-number {
+            position: absolute;
+            z-index: 5;
+            top: 15px;
+            left: 5px;
+
+            padding: 8px 13px;
+
+            color: #fff;
+            background: #e52332;
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 3px;
+
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+
+            box-shadow: 0 0 18px rgba(229,35,50,.4);
+        }
+
+        .hero-information {
+            width: 100%;
+            max-width: 450px;
+            padding: 15px 10px 10px;
+            text-align: center;
+        }
+
+        .hero-information h3 {
+            font-size: 28px;
+            margin: 12px 0;
+            letter-spacing: 1px;
+        }
+
+        .hero-information p {
+            min-height: auto;
+            line-height: 1.7;
+        }
+
+        .hero-card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+
+            max-width: 220px;
+            margin: 22px auto 0;
+            padding: 13px 20px;
+        }
+
+        /* =====================================
+           FUTURISTIC SIDE NAVIGATION
+        ===================================== */
+
+        .roster-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+
+            width: 58px;
+            height: 76px;
+            min-width: 58px;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: #fff;
+            background: rgba(12, 13, 20, .96);
+
+            border: 1px solid rgba(229, 35, 50, .75);
+            border-radius: 3px;
+
+            cursor: pointer;
+            overflow: hidden;
+
+            box-shadow:
+                0 0 15px rgba(229, 35, 50, .15),
+                inset 0 0 15px rgba(229, 35, 50, .08);
+
+            transition:
+                background .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease,
+                transform .3s ease;
+        }
+
+        .roster-button::before {
+            content: "";
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(229, 35, 50, .2);
+            pointer-events: none;
+        }
+
+        .roster-button::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            top: 0;
+            left: -100%;
+            background: #ff5965;
+            box-shadow: 0 0 12px #e52332;
+            transition: left .4s ease;
+        }
+
+        .roster-button:hover::after {
+            left: 100%;
+        }
+
+        .roster-button span {
+            position: relative;
+            font-family: Arial, sans-serif;
+            font-size: 36px;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .roster-prev {
+            left: 5px;
+        }
+
+        .roster-next {
+            right: 5px;
+        }
+
+        .roster-prev:hover {
+            transform: translate(-4px, -50%);
+        }
+
+        .roster-next:hover {
+            transform: translate(4px, -50%);
+        }
+
+        .roster-button:hover {
+            color: #fff;
+            background: #e52332;
+            border-color: #ff6470;
+
+            box-shadow:
+                0 0 18px rgba(229, 35, 50, .7),
+                0 0 40px rgba(229, 35, 50, .3);
+        }
+
+        .roster-button:active {
+            background: #b91525;
+        }
+
+        .roster-button:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 5px;
+        }
+
+        /* =====================================
+           PAGINATION
+        ===================================== */
+
+        .roster-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            margin: 12px auto 25px;
+        }
+
+        .pagination-line {
+            display: block;
+            width: 20px;
+            height: 3px;
+            border-radius: 0;
+
+            background: rgba(150,150,150,.35);
+            cursor: pointer;
+
+            transition: all .35s ease;
+        }
+
+        .pagination-line:hover {
+            background: rgba(229,35,50,.6);
+        }
+
+        .pagination-line.active {
+            width: 45px;
+            background: #e52332;
+            box-shadow: 0 0 12px rgba(229,35,50,.75);
+        }
+
+        /* =====================================
+           ROSTER HUD DETAILS
+        ===================================== */
+
+        .roster-topline,
+        .roster-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .roster-topline {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(229,35,50,.25);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        #rosterCounter {
+            color: #e52332;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .roster-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(229,35,50,.25);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            opacity: .7;
+        }
+
+        /* =====================================
+           TRANSITION OVERLAY
+        ===================================== */
+
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+
+            background: #08080d;
+            opacity: 0;
+            visibility: hidden;
+
+            transition: opacity .5s ease, visibility .5s ease;
+        }
+
+        .transition-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader-ring {
+            width: 65px;
+            height: 65px;
+            border: 3px solid rgba(229,35,50,.15);
+            border-top-color: #e52332;
+            border-radius: 50%;
+            animation: rosterSpin .8s linear infinite;
+            box-shadow: 0 0 25px rgba(229,35,50,.2);
+        }
+
+        .loading-text {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            animation: rosterPulse 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes rosterSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rosterPulse {
+            from { opacity: .4; }
+            to { opacity: 1; }
+        }
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 900px) {
+            .roster-display {
+                padding: 20px 55px;
+            }
+
+            .roster-stage {
+                min-height: 540px;
+            }
+
+            .roster-button {
+                width: 44px;
+                min-width: 44px;
+                height: 62px;
+            }
+
+            .roster-button span {
+                font-size: 30px;
+            }
+
+            .member-photo {
+                width: 210px;
+                height: 210px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .roster-display {
+                padding: 15px 35px;
+            }
+
+            .roster-stage {
+                min-height: 480px;
+            }
+
+            .hero-card {
+                padding: 25px 5px;
+            }
+
+            .member-character {
+                width: 220px;
+                height: 250px;
+            }
+
+            .member-photo {
+                width: 180px;
+                height: 180px;
+            }
+
+            .hero-number {
+                top: 8px;
+                left: 0;
+            }
+
+            .hero-information {
+                padding: 12px 5px;
+            }
+
+            .hero-information h3 {
+                font-size: 22px;
+            }
+
+            .hero-information p {
+                font-size: 12px;
+            }
+
+            .roster-button {
+                width: 32px;
+                min-width: 32px;
+                height: 48px;
+            }
+
+            .roster-button span {
+                font-size: 25px;
+            }
+
+            .roster-prev {
+                left: 0;
+            }
+
+            .roster-next {
+                right: 0;
+            }
+
+            .roster-pagination {
+                margin-top: 8px;
+            }
+
+            .pagination-line {
+                width: 12px;
+            }
+
+            .pagination-line.active {
+                width: 28px;
+            }
+
+            .roster-topline,
+            .roster-footer {
+                font-size: 8px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <span></span>
+            </a>
+
+            <span class="nav-label">BIG HERO 6 // TEAM DATABASE</span>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+
+            <div class="hero-content">
+                <p class="eyebrow">BIG HERO 6</p>
+
+                <h1>BIG HERO <span>6</span></h1>
+
+                <h2>Six Minds. One Team. Infinite Possibilities.</h2>
+
+                <p class="description">
+                    Welcome to our team portfolio. Meet six aspiring creators,
+                    explore their skills, discover their projects, and see
+                    what makes each member unique.
+                </p>
+
+                <a href="#portfolios" class="hero-button" id="exploreButton">
+                    EXPLORE THE TEAM <span>↗</span>
+                </a>
+            </div>
+
+            <div class="hero-visual">
+                <video
+                    id="baymaxVideo"
+                    class="baymax-video"
+                    autoplay
+                    playsinline
+                    preload="auto"
+                >
+                    <source src="video/baymax.mp4" type="video/mp4">
+                </video>
+
+                <div class="hero-circle"></div>
+            </div>
+
+        </section>
+
+        <!-- TEAM ROSTER -->
+        <section class="hero-roster" id="portfolios">
+
+            <div class="roster-background"></div>
+            <div class="roster-grid"></div>
+
+            <div class="roster-container">
+
+                <div class="roster-header">
+
+                    <div class="roster-label">
+                        <span class="status-dot"></span>
+                        BIG HERO 6 // TEAM DATABASE
+                    </div>
+
+                    <h2>MEET THE <span>HEROES.</span></h2>
+
+                    <p>
+                        Six individuals. Six unique abilities.
+                        One team ready to make a difference.
+                    </p>
+
+                </div>
+
+                <div class="roster-display">
+
+                    <div class="roster-topline">
+                        <span>HERO IDENTIFICATION SYSTEM</span>
+                        <span id="rosterCounter">01 / 06</span>
+                    </div>
+
+                    <!-- PROFILE AND SIDE ARROWS -->
+                    <div class="roster-stage">
+
+                        <button
+                            class="roster-button roster-prev"
+                            id="rosterPrev"
+                            type="button"
+                            aria-label="Previous profile"
+                        >
+                            <span>←</span>
+                        </button>
+
+                        <div class="roster-viewport">
+
+                            <div class="roster-track" id="rosterTrack">
+
+                                <!-- MEMBER 1 -->
+                                <a href="https://4ldw3ynnnnnn.github.io/aldweynnnn/?fbclid=IwY2xjawVpVZtleHRuA2FlbQIxMQBwZG9mBXNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABH_oUif-3-M0BGbyD5Bh4EffamaNcWiV98cQ2SyK5SgslsKyv4I3gNpjQIvoj_aem_vs_Vi-8S-GMIzhOF16kcfg"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/mata.jpg" alt="Student 1">
+                                        <span class="hero-number">01</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">FIRST DEVELOPER</span>
+                                        <h3>MATA, JOHN ALDRIN O.</h3>
+                                        <p>CALCULUS GODS</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                                <!-- MEMBER 2 -->
+                                <a href="https://sanagustinaeroncarlportfolio.netlify.app/?fbclid=IwY2xjawVzugxleHRuA2FlbQIxMQBwZG9mA3NydGMGYXBwX2lkATAAAR9P2W-nc0XVYmUqTgnDtIwPr-SLcbdTva27Sso9Nu66aN54Y8vODWnUCpeAuA_aem_KdUVxFSjEOHkANrg9mPqDg"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/aeron.jpg" alt="Student 2">
+                                        <span class="hero-number">02</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">SECOND DEVELOPER</span>
+                                        <h3>SAN AGUSTIN, AERON CARL D.</h3>
+                                        <p>CUTE LANG</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                                <!-- MEMBER 3 -->
+                                <a href="https://jueycalaunanportfolio.netlify.app/?fbclid=IwY2xjawVzuh1leHRuA2FlbQIxMQBwZG9mA3NydGMGYXBwX2lkATAAAR9YAWtGoTpVUzjsmI-wEarBzcFwEb5QxxNu4oaOnVyENCsQxxgbWClOrpLsbA_aem_Fav_MPn9E-GcMfx_ZbcAKA"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/juey.jpg" alt="Student 3">
+                                        <span class="hero-number">03</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">THIRD DEVELOPER</span>
+                                        <h3>CALAUNAN, JUEY JOEL L.</h3>
+                                        <p>KANTO KAWAZAKI</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                                <!-- MEMBER 4 -->
+                                <a href="https://carljohnnovio7-arch.github.io/PROFILE-NG-YEARNER-FINAL-BOSS/?fbclid=IwY2xjawVzukVleHRuA2FlbQIxMQBwZG9mA3NydGMGYXBwX2lkATAAAR8Mns3MbAB8QAoXnwlcxkoTLrueCfGmbXdJvZbQSsCvlq21YG4REyTfY1jybw_aem_9RXZdQe4nkhRmB2eCuXVPQ"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/novio.jpg" alt="Student 4">
+                                        <span class="hero-number">04</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">FOURTH DEVELOPER</span>
+                                        <h3>NOVIO, CARL JOHN M.</h3>
+                                        <p>ANO NI ANO</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                                <!-- MEMBER 5 -->
+                                <a href="https://obiassiemonjhonleoligao-coder.github.io/Siemon-Obias-Portfolio/?fbclid=IwY2xjawVzuldleHRuA2FlbQIxMQBwZG9mA3NydGMGYXBwX2lkATAAAR_EC_8t6b51G1NsTY5o389XHz9zCVWW7JqGIsqlBTcRgNcBI-E3pdVJUp-LPg_aem_6FluVmQrt-Ytj7wr4CRWbA"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/siemon.jpg" alt="Student 5">
+                                        <span class="hero-number">05</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">FIFTH DEVELOPER</span>
+                                        <h3>OBIAS, SIEMON JHON L.</h3>
+                                        <p>DINUROBONG TUBO</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                                <!-- MEMBER 6 -->
+                                <a href="https://olavsvincent.github.io/My-Personal-Portfolio/"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="hero-card">
+
+                                    <div class="member-character">
+                                        <img class="member-photo" src="pfp/profile.jpg" alt="Student 6">
+                                        <span class="hero-number">06</span>
+                                    </div>
+
+                                    <div class="hero-information">
+                                        <span class="hero-role">SIXTH DEVELOPER</span>
+                                        <h3>OLAVARIO, SHANE VINCENT E.</h3>
+                                        <p>ICE COFFEE O MANGO SHAKE?</p>
+
+                                        <div class="hero-card-bottom">
+                                            <span>VIEW PORTFOLIO</span>
+                                            <span class="hero-arrow">↗</span>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <button
+                            class="roster-button roster-next"
+                            id="rosterNext"
+                            type="button"
+                            aria-label="Next profile"
+                        >
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                    <!-- PAGINATION UNDER PROFILE -->
+                    <div class="roster-pagination" id="rosterPagination">
+                        <span class="pagination-line active"></span>
+                        <span class="pagination-line"></span>
+                        <span class="pagination-line"></span>
+                        <span class="pagination-line"></span>
+                        <span class="pagination-line"></span>
+                        <span class="pagination-line"></span>
+                    </div>
+
+                    <div class="roster-footer">
+                        <span>BIG HERO 6 // HERO ROSTER</span>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 BIG HERO 6. All Rights Reserved.</p>
+        <p>Designed with creativity and passion.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            /* =====================================
+               PORTFOLIO TRANSITION
+            ===================================== */
+
+            const cards = document.querySelectorAll(".hero-card");
+
+            const overlay = document.createElement("div");
+            overlay.className = "transition-overlay";
+
+            overlay.innerHTML = `
+                <div class="loader-ring"></div>
+                <p class="loading-text">OPENING PORTFOLIO</p>
+            `;
+
+            document.body.appendChild(overlay);
+
+            let isTransitioning = false;
+
+            cards.forEach(card => {
+                card.addEventListener("click", event => {
+
+                    const link = card.getAttribute("href");
+
+                    if (!link || link.includes("example.com")) {
+                        event.preventDefault();
+                        alert("Please add the actual portfolio link first.");
+                        return;
+                    }
+
+                    if (isTransitioning) {
+                        event.preventDefault();
+                        return;
+                    }
+
+                    event.preventDefault();
+                    isTransitioning = true;
+
+                    card.classList.add("selected");
+                    document.body.classList.add("leaving");
+
+                    setTimeout(() => {
+                        overlay.classList.add("active");
+                    }, 200);
+
+                    setTimeout(() => {
+                        window.open(link, "_blank", "noopener,noreferrer");
+
+                        document.body.classList.remove("leaving");
+                        card.classList.remove("selected");
+                        overlay.classList.remove("active");
+
+                        isTransitioning = false;
+                    }, 1100);
+
+                });
+            });
+
+            /* =====================================
+               EXPLORE TEAM
+            ===================================== */
+
+            const exploreButton = document.getElementById("exploreButton");
+            const portfolioSection = document.getElementById("portfolios");
+
+            if (exploreButton && portfolioSection) {
+                exploreButton.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    portfolioSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                });
+            }
+
+            /* =====================================
+               INFINITE TEAM CAROUSEL
+            ===================================== */
+
+            const track = document.getElementById("rosterTrack");
+            const viewport = document.querySelector(".roster-viewport");
+            const profileCards = document.querySelectorAll(".hero-card");
+
+            const nextButton = document.getElementById("rosterNext");
+            const prevButton = document.getElementById("rosterPrev");
+
+            const counter = document.getElementById("rosterCounter");
+            const pagination = document.querySelectorAll(".pagination-line");
+
+            let currentIndex = 0;
+
+            if (track && viewport && profileCards.length && nextButton && prevButton) {
+
+                function updateRoster() {
+                    const slideWidth = viewport.clientWidth;
+
+                    track.style.transform =
+                        `translateX(-${currentIndex * slideWidth}px)`;
+
+                    if (counter) {
+                        counter.textContent =
+                            `${String(currentIndex + 1).padStart(2, "0")} / ${String(profileCards.length).padStart(2, "0")}`;
+                    }
+
+                    pagination.forEach((line, index) => {
+                        line.classList.toggle("active", index === currentIndex);
+                    });
+                }
+
+                function nextProfile() {
+                    currentIndex = (currentIndex + 1) % profileCards.length;
+                    updateRoster();
+                }
+
+                function previousProfile() {
+                    currentIndex =
+                        (currentIndex - 1 + profileCards.length) % profileCards.length;
+
+                    updateRoster();
+                }
+
+                nextButton.addEventListener("click", nextProfile);
+                prevButton.addEventListener("click", previousProfile);
+
+                pagination.forEach((line, index) => {
+                    line.addEventListener("click", () => {
+                        currentIndex = index;
+                        updateRoster();
+                    });
+                });
+
+                /* KEYBOARD NAVIGATION */
+
+                document.addEventListener("keydown", event => {
+                    if (event.key === "ArrowRight") {
+                        nextProfile();
+                    }
+
+                    if (event.key === "ArrowLeft") {
+                        previousProfile();
+                    }
+                });
+
+                /* MOBILE SWIPE */
+
+                let touchStartX = 0;
+
+                viewport.addEventListener("touchstart", event => {
+                    touchStartX = event.changedTouches[0].screenX;
+                }, { passive: true });
+
+                viewport.addEventListener("touchend", event => {
+                    const touchEndX = event.changedTouches[0].screenX;
+                    const difference = touchStartX - touchEndX;
+
+                    if (Math.abs(difference) > 50) {
+                        if (difference > 0) {
+                            nextProfile();
+                        } else {
+                            previousProfile();
+                        }
+                    }
+                }, { passive: true });
+
+                window.addEventListener("resize", updateRoster);
+
+                updateRoster();
+            }
+
+            /* =====================================
+               BAYMAX VIDEO LOOP
+            ===================================== */
+
+            const baymaxVideo = document.getElementById("baymaxVideo");
+
+            if (baymaxVideo) {
+                const fadeDuration = 0.8;
+                let isFading = false;
+
+                baymaxVideo.addEventListener("timeupdate", () => {
+                    if (!baymaxVideo.duration) return;
+
+                    const remaining =
+                        baymaxVideo.duration - baymaxVideo.currentTime;
+
+                    if (remaining <= fadeDuration && !isFading) {
+                        isFading = true;
+                        baymaxVideo.classList.add("fade-out");
+                    }
+                });
+
+                baymaxVideo.addEventListener("ended", async () => {
+                    baymaxVideo.currentTime = 0;
+
+                    try {
+                        await baymaxVideo.play();
+
+                        requestAnimationFrame(() => {
+                            baymaxVideo.classList.remove("fade-out");
+                            isFading = false;
+                        });
+                    } catch (error) {
+                        console.log("Baymax video could not restart.", error);
+                    }
+                });
+
+                baymaxVideo.play().catch(() => {
+                    console.log("Video autoplay was prevented.");
+                });
+            }
+
+        });
+    </script>
+
+</body>
+</html>
