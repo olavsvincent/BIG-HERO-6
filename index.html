@@ -497,6 +497,111 @@
                 letter-spacing: 1px;
             }
         }
+
+
+/* =====================================
+   TEAM MEMORIES SECTION
+===================================== */
+
+.team-memories {
+    position: relative;
+    overflow: hidden;
+    padding: 110px 7%;
+    background: #101014;
+    text-align: center;
+}
+
+.memories-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1050px;
+    margin: auto;
+}
+
+.memories-label {
+    color: #e52332;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.memories-content h2 {
+    margin: 20px 0;
+    color: #fff;
+    font-size: clamp(36px, 6vw, 65px);
+    font-weight: 900;
+}
+
+.memories-content h2 span {
+    color: #e52332;
+}
+
+.memories-description {
+    max-width: 600px;
+    margin: 0 auto 45px;
+    color: #aaa;
+    line-height: 1.8;
+}
+
+.team-photo-frame {
+    position: relative;
+    overflow: hidden;
+    background: #17191d;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, .5);
+}
+
+.team-photo-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .8s ease;
+}
+
+.team-photo-frame:hover img {
+    transform: scale(1.035);
+}
+
+.photo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 35px;
+    background: linear-gradient(
+        transparent 55%,
+        rgba(0, 0, 0, .8)
+    );
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.memories-caption {
+    margin-top: 28px;
+    color: #e52332;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+@media (max-width: 600px) {
+    .team-memories {
+        padding: 75px 5%;
+    }
+
+    .photo-overlay {
+        padding: 15px;
+        font-size: 10px;
+    }
+
+    .memories-caption {
+        font-size: 9px;
+        line-height: 1.8;
+    }
+}
+
     </style>
 </head>
 
@@ -775,6 +880,16 @@
                 </div>
             </div>
         </section>
+
+
+        <section class="team-memories" id="memories">
+    <div class="memories-content">
+        <h2>MAY ARRIVE DIN TALAGA</h2>
+    </div>
+</section>
+
+    </main>
+
 
     </main>
 

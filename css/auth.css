@@ -2540,3 +2540,88 @@ body {
         0 0 35px rgba(255, 53, 72, 0.2);
 }
 
+/* BIG HERO 6 TEAM MEMORIES */
+
+.team-memories {
+    position: relative !important;
+    isolation: isolate;
+    width: 100%;
+    min-height: 700px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #0b0b10 !important;
+}
+
+/* GROUP PHOTO BACKGROUND */
+.team-memories::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    background-image: url("../images/cutie.jpg") !important;
+    background-size: cover !important;
+    background-position: center 40% !important;
+    background-repeat: no-repeat !important;
+
+    transform: scale(1.02);
+}
+
+/* DARK CINEMATIC OVERLAY */
+.team-memories::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 8, 12, 0.65),
+            rgba(8, 8, 12, 0.25),
+            rgba(8, 8, 12, 0.65)
+        ),
+        linear-gradient(
+            0deg,
+            rgba(229, 35, 50, 0.18),
+            transparent 70%
+        );
+}
+
+.team-memories {
+    position: relative !important;
+    min-height: 700px !important;
+}
+
+.team-memories .memories-content {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 20px 45px !important;
+    text-align: center !important;
+    z-index: 10 !important;
+}
+
+.team-memories .memories-content h2 {
+    margin: 0 !important;
+    color: #fff !important;
+    font-size: clamp(25px, 5vw, 55px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 600px) {
+    .team-memories {
+        min-height: 550px;
+    }
+
+    .memories-content h2 {
+        font-size: 32px;
+        letter-spacing: 1px;
+    }
+}
